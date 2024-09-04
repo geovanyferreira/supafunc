@@ -3,7 +3,7 @@ name: Deploy Edge Functions
 on:
   push:
     branches:
-      - master  # Dispara o workflow ao fazer push na branch "master"
+      - master  # Dispara o workflow ao fazer push na branch "main"
 
 jobs:
   deploy:
@@ -13,14 +13,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '20'  # Escolha a versão Node.js necessária
+      - name: Install Deno
+        run: |
+          curl -fsSL https://deno.land/x/install/install.sh | sh
+          export DENO_INSTALL="/home/runner/.deno"
+          export PATH="$DENO_INSTALL/bin:$PATH"
+
+      - name: Install Supabase CLI
+        run: deno install -A -f -n supabase https://deno.land/x/supabase_cli/main.ts
 
       - name: Login to Supabase
-        run: supabase login --token ${{ secrets.SUPABASE_TOKEN }}    
+        run: supabase login --token ${{ secrets.SUPABASE_TOKEN }}
 
-      # Instalação do Supabase CLI usando o método recomendado (npx)
       - name: Deploy Edge Function
-        run: npx supabase functions deploy hello-world --project-ref kubeteoyowktehmkjbzv
+        run: supabase functions deploy hello-world --project-ref kubeteoyowktehmkjbzv
