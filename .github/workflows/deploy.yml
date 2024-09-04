@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'  # Escolha a versão Node.js necessária
+          node-version: '20'  # Escolha a versão Node.js necessária
 
       - name: Install Supabase CLI
         run: npm install -g supabase
@@ -25,4 +25,4 @@ jobs:
         run: supabase login --token ${{ secrets.SUPABASE_TOKEN }}
 
       - name: Deploy Edge Function
-        run: supabase functions deploy minha-funcao --project-ref kubeteoyowktehmkjbzv
+        run: supabase functions deploy hello-world --project-ref kubeteoyowktehmkjbzv
