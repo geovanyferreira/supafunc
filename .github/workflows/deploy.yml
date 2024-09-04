@@ -3,7 +3,7 @@ name: Deploy Edge Functions
 on:
   push:
     branches:
-      - main  # Dispara o workflow ao fazer push na branch "main"
+      - master  # Dispara o workflow ao fazer push na branch "main"
 
 jobs:
   deploy:
