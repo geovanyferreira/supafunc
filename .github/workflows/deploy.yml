@@ -3,7 +3,7 @@ name: Deploy Edge Functions
 on:
   push:
     branches:
-      - master  # Dispara o workflow ao fazer push na branch "main"
+      - master  # Dispara o workflow ao fazer push na branch "master"
 
 jobs:
   deploy:
@@ -18,11 +18,9 @@ jobs:
         with:
           node-version: '20'  # Escolha a versão Node.js necessária
 
-      - name: Install Supabase CLI
-        run: npm install -g supabase
-
       - name: Login to Supabase
-        run: supabase login --token ${{ secrets.SUPABASE_TOKEN }}
+        run: supabase login --token ${{ secrets.SUPABASE_TOKEN }}    
 
+      # Instalação do Supabase CLI usando o método recomendado (npx)
       - name: Deploy Edge Function
-        run: supabase functions deploy hello-world --project-ref kubeteoyowktehmkjbzv
+        run: npx supabase functions deploy hello-world --project-ref kubeteoyowktehmkjbzv
